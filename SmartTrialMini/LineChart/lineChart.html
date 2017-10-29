@@ -1,0 +1,12 @@
+﻿    <div class="row" style="width:calc(100% - 8px);">
+        <div class="col-lg-12 col-sm-2" id="line-chart" ng-controller="lineController" style="width:calc(75% - 8px);">
+            <div class="panel panel-default">
+                <div class="panel-heading">Evolution of the subjects</div>
+                <div class="panel-body">
+                    <canvas style="width:calc(100% - 8px); height:calc(30% - 8px);" id="line" class="chart chart-line" chart-data="data" chart-labels="labels"
+                            chart-click="onClick" chart-hover="onHover" chart-series="series" chart-options="options"
+                            chart-dataset-override="datasetOverride"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>

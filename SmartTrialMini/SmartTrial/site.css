@@ -1,0 +1,53 @@
+﻿table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding-top: 100px;
+}
+
+td, th, tr {
+    border: 3px solid #dddddd;
+    padding: 8px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+    display: block;
+    width: 200px;
+}
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        width: 200px;
+    }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+.topHeader {
+    padding: 1em;
+    color: black;
+    background-color: #ffb90f;
+    clear: left;
+    text-align: center; 
+    font-size:24px; 
+    font-weight:900
+}
+
+.panel-heading {
+    font-weight: bold;
+}

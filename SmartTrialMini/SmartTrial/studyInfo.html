@@ -1,0 +1,47 @@
+﻿<html  ng-controller="smartTrialController" ng-app="smartTrialApp">
+<head>
+    <meta charset="utf-8" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="site.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../smartTrialApp.js"></script>
+    <script src="smartTrialController.js"></script>
+    <script src="../Scripts/Chart.min.js"></script>
+    <script src="../Scripts/angular-chart.min.js"></script>
+    <script src="../LineChart/lineController.js"></script>
+</head>
+<body>
+    <div ng-include="'header.html'"></div>
+    <div class="container">
+      <h1 style="text-align:center">Studies info overview</h1>
+      <label>Select study to see info</label>
+        <select ng-model="study" ng-init="study = 'Prostetic Legs'">
+            <option ng-repeat="entry in sample" value="{{entry.name}}">{{entry.name}}</option>
+        </select>
+    </div>
+    <div class="container" style="padding-top:30px">
+        <div ng-repeat="entry in sample" ng-if="entry.name == study">
+            <div>
+                <label>Name:</label> {{entry.name}}
+            </div>
+            <div>
+                <label>Description:</label> {{entry.description}}
+            </div>
+            <div>
+                <label>Status:</label> {{entry.status}}
+                <button class="btn-xs btn-primary" ng-click="changeStatus()">
+                    <span class="glyphicon glyphicon-transfer"></span>Change status
+                </button>
+            </div>
+            <div>
+                <label>Number of subjects:</label>{{entry.subjects.length}}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div ng-include="'../LineChart/lineChart.html'"></div>
+        </div>
+</body>
+</html>

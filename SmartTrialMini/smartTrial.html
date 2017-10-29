@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html ng-app="smartTrialApp" ng-controller="smartTrialController">
+
+<head>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="SmartTrial/site.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="smartTrialApp.js"></script>
+    <script src="SmartTrial/smartTrialController.js"></script>
+    <script src="Scripts/Chart.min.js"></script>
+    <script src="Scripts/angular-chart.min.js"></script>
+    <script src="LineChart/lineController.js"></script>
+</head>
+
+<body>
+    <div  ng-include="'SmartTrial/header.html'"></div>
+    <div class="container">
+        <h2>Add new study</h2>
+        <table>
+            <tr style="background-color: #ffb90f">
+                <th>Study name</th>
+                <th>Study description</th>
+                <th> Add study</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" ng-model="newStudy" style="width:100%">
+                </td>
+                <td>
+                    <input type="text" ng-model="newDescription" style="width:100%">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default" ng-click="addStudy()">
+                        <span class="glyphicon glyphicon-plus"></span>Study
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <h2>
+            Total number of studies
+            <input type="text" style="float:right" ng-model="searchKeyword" name="search" placeholder="Search study...">
+        </h2>
+        <div style="height: 200px; overflow-y: scroll;">
+            <table>
+                <tr style="background-color: #ffb90f">
+                    <th>Study name</th>
+                    <th>Study status</th>
+                    <th>Subjects</th>
+                </tr>
+                <tr ng-repeat="entry in sample | filter: searchKeyword">
+                    <td>{{entry.name}}</td>
+                    <td>{{entry.status}}</td>
+                    <td>{{entry.subjects.length}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!--Study info modal-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="panel-title" style="float:left;font-size:16px;font-weight:400" id="myModalLabel">
+                        Select study to see info
+                        <select ng-model="study" ng-init="study = 'Prostetic Legs'">
+                            <option ng-repeat="entry in sample" value="{{entry.name}}">{{entry.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-body" style="overflow-y:scroll; overflow-x:hidden; max-height:350px;">
+                    <div ng-repeat="entry in sample" ng-if="entry.name == study">
+                        <div>
+                            <label>Name:</label> {{entry.name}}
+                        </div>
+                        <div>
+                            <label>Description:</label> {{entry.description}}
+                        </div>
+                        <div>
+                            <label>Status:</label> {{entry.status}}
+                            <button class="btn-xs btn-primary" ng-click="changeStatus()">
+                                <span class="glyphicon glyphicon-transfer"></span>Change status
+                            </button>
+                        </div>
+                        <div>
+                            <label>Number of subjects:</label>{{entry.subjects.length}}
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div ng-include="'LineChart/lineChart.html'"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Subjects modal-->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="panel-title" style="float:left;font-weight:400" id="myModalLabel1">
+                        Select study to see subjects
+                        <select ng-model="showing" ng-init="showing = 'Prostetic Legs'">
+                            <option ng-repeat="entry in sample" value="{{entry.name}}">{{entry.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <h4>Add subject</h4>
+                    <table>
+                        <tr style="background-color: #ffb90f">
+                            <th>Name</th>
+                            <th>Enrolment</th>
+                            <th>Add subject</th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" ng-model="nameNew"></td>
+                            <td><input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="createdNew"></td>
+                            <td>
+                                <button type="button" class="btn btn-default" ng-click="addSubject()">
+                                    <span class="glyphicon glyphicon-plus"></span>Subject
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <h4 class="modal-body">
+                    Subjects list
+                    <input type="text" style="float:right" ng-model="searchKeyword" name="search" placeholder="Search student..">
+                </h4>
+                <div class="modal-body" style="overflow-y:scroll; max-height:200px; ">
+                    <div>
+                        <table  ng-repeat="entry in sample " >
+                            <tr ng-if="entry.name == showing" ng-repeat="e in entry.subjects | filter: searchKeyword ">
+                                <td>{{e.name}}</td>
+                                <td>{{e.created | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                                <td><button class="btn btn-default" ng-click="remove($index)">
+                                    <span class="glyphicon glyphicon-trash"></span>Subject</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿<html ng-controller="smartTrialController" ng-app="smartTrialApp">
+
+<head>
+    <meta charset="utf-8" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="site.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../smartTrialApp.js"></script>
+    <script src="smartTrialController.js"></script>
+    <script src="../Scripts/Chart.min.js"></script>
+    <script src="../Scripts/angular-chart.min.js"></script>
+</head>
+
+<body>
+    <div ng-include="'header.html'"></div>
+    <div class="container">
+        <h1 style="text-align:center">Subject info list</h1>
+        <div>
+            <label style="font-size:16px">Select study to see subjects</label>
+            <select ng-model="showing" ng-init="showing = 'Prostetic Legs'">
+                <option ng-repeat="entry in sample" value="{{entry.name}}">{{entry.name}}</option>
+            </select>
+        </div>
+        <table>
+            <tr style="background-color: #ffb90f;">
+                <th>Name</th>
+                <th>Enrolment</th>
+                <th>Add subject</th>
+            </tr>
+            <tr>
+                <td><input type="text" ng-model="nameNew"></td>
+                <td><input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="createdNew"></td>
+                <td>
+                    <button type="button" class="btn btn-default" ng-click="addSubject()">
+                        <span class="glyphicon glyphicon-plus"></span>Subject
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <h4>
+            Subjects list
+            <input type="text" style="float:right" ng-model="searchKeyword" name="search" placeholder="Search student...">
+        </h4>
+    </div>
+    <div class="container" style="height: 200px; overflow-y: scroll;">
+        <div ng-repeat="entry in sample ">
+            <table>
+                <tr ng-if="entry.name == showing" ng-repeat="e in entry.subjects | filter: searchKeyword ">
+                    <td id="td">{{e.name}}</td>
+                    <td id="td">{{e.created | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <td>
+                        <button class="btn btn-default" ng-click="remove($index)">
+                            <span class="glyphicon glyphicon-trash"></span>Subject
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
