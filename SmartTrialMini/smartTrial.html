@@ -18,7 +18,7 @@
 <body>
     <div  ng-include="'SmartTrial/header.html'"></div>
     <div class="container">
-        <h2>Add new study</h2>
+        <h2 style="text-align:center">Add new study</h2>
         <table>
             <tr style="background-color: #ffb90f">
                 <th>Study name</th>
@@ -49,11 +49,17 @@
                     <th>Study name</th>
                     <th>Study status</th>
                     <th>Subjects</th>
+                    <th>Actions</th>
                 </tr>
                 <tr ng-repeat="entry in sample | filter: searchKeyword">
                     <td>{{entry.name}}</td>
                     <td>{{entry.status}}</td>
                     <td>{{entry.subjects.length}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default" ng-click="removeStudy(entry.name)">
+                            <span class="glyphicon glyphicon-trash"></span>Study
+                        </button>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -67,7 +73,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <div class="panel-title" style="float:left;font-size:16px;font-weight:400" id="myModalLabel">
                         Select study to see info
-                        <select ng-model="study" ng-init="study = 'Prostetic Legs'">
+                        <select ng-model="study" ng-init="study = 'Dialysis Treatment'">
                             <option ng-repeat="entry in sample" value="{{entry.name}}">{{entry.name}}</option>
                         </select>
                     </div>
@@ -108,7 +114,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <div class="panel-title" style="float:left;font-weight:400" id="myModalLabel1">
                         Select study to see subjects
-                        <select ng-model="showing" ng-init="showing = 'Prostetic Legs'">
+                        <select ng-model="showing" ng-init="showing = 'Dialysis Treatment'">
                             <option ng-repeat="entry in sample" value="{{entry.name}}">{{entry.name}}</option>
                         </select>
                     </div>

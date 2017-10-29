@@ -85,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Scripts\linq-vsdoc.js" />
+    <Content Include="Scripts\linq.js" />
+    <Content Include="Scripts\linq.min.js" />
     <Content Include="SmartTrial\header.html" />
     <Content Include="LineChart\lineChart.html" />
     <Content Include="LineChart\lineController.js" />

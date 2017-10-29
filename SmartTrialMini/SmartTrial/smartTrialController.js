@@ -38,13 +38,25 @@ angular.module('smartTrialApp').controller('smartTrialController', function ($sc
     }
 
     $scope.remove = function (index) {
-        var s = $scope.sample
+        var s = $scope.sample;
         for (var i = 0, l = s.length; i < l; i++) {
             if (s[i].name == $scope.showing) {
                 s[i].subjects.splice(index, 1)
             }
 
         }        
+    };
+      
+    $scope.removeStudy = function (name) {
+        var s = eval($scope.sample);
+        for (var i = 0; i < s.length; i++) {
+            if (s[i].name === name) {
+                index = i;
+                break;
+            }
+        }
+
+        $scope.sample.splice(index, 1);
     };
          
  });
