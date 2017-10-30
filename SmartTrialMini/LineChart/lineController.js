@@ -5,7 +5,7 @@
     $scope.data = [];
     
 
-    $.getJSON("sample.json", function (json) {
+    $.getJSON("../sample.json", function (json) {
         $scope.sample = json;
     });
 

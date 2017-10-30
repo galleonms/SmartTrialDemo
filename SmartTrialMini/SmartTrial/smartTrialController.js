@@ -2,7 +2,7 @@
 angular.module('smartTrialApp').controller('smartTrialController', function ($scope) {
 
      
-    $.getJSON("sample.json", function (json) {
+    $.getJSON("../sample.json", function (json) {
         $scope.sample = json;
         console.log(json);
     });
